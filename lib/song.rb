@@ -33,14 +33,18 @@ class Song
     @@artists
   end 
   
+  def inject(array, init)
+    obj = init
+    array.each do |el|
+      obj = yield(obj, el)
+    end 
+    obj
+  end
+  
   def self.genre_count
-    genre_count = {}
+    genre_count = Hash.new(0)
     @@genres.each do |genre|
-      if genre_count[genre]
         genre_count[genre] += 1 
-      else
-        genre_count[genre] = 1
-      end
     end
     genre_count
   end
@@ -48,5 +52,6 @@ class Song
   def self.artist_count
     @@artists.inject(Hash.new(0)) { |total, i| total[i] += 1 ;total}
   end
+
 
 end 
